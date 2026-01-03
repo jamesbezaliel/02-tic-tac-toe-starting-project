@@ -16,7 +16,6 @@ const INITIAL_GAME_BOARD = [
   [null, null, null],
 ];
 
-// helper function to switch active player
 function deriveActivePlayer(gameTurns) {
   let currPlayer = "X";
 
@@ -29,22 +28,9 @@ function deriveActivePlayer(gameTurns) {
 function deriveGameBoard(gameTurns) {
   let gameBoard = INITIAL_GAME_BOARD.map((row) => [...row]);
 
-  // fill the game board based on turns prop
   for (let turn of gameTurns) {
-    // max's way:
     const { square, activePlayer } = turn;
     const { row, col } = square;
-
-    // const { row, col } = turn.square;
-    // const activePlayer  = turn.activePlayer;
-
-    // my way:
-    // const {row, col, activePlayer} = turn;
-    // or:
-    // const row = turn.row;
-    // const col = turn.col;
-    // const activePlayer = turn.activePlayer;
-
     gameBoard[row][col] = activePlayer;
   }
   return gameBoard;
@@ -82,26 +68,9 @@ function App() {
   const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex, colIndex) {
-    // right (must send return statement):
-    // not used anymore
-    // setActivePlayer((currActivePlayer) => {
-    //   return currActivePlayer === "X" ? "O" : "X";
-    // });
-
-    // or:
-    // setActivePlayer((currActivePlayer) =>
-    //   currActivePlayer === "X" ? "O" : "X"
-    // );
-
-    // wrong
-    // setActivePlayer((currActivePlayer) => {
-    //   currActivePlayer === "X" ? "O" : "X";
-    // });
-
     setGameTurns((prevGameTurns) => {
       const currPlayer = deriveActivePlayer(prevGameTurns);
 
-      // max's way:
       let newTurn = [
         {
           square: { row: rowIndex, col: colIndex },
@@ -109,16 +78,6 @@ function App() {
         },
         ...prevGameTurns,
       ];
-
-      // my way:
-      // let newTurn = [
-      //   {
-      //     row: rowIndex,
-      //     col: colIndex,
-      //     activePlayer: currPlayer,
-      //   },
-      //   ...prevGameTurns,
-      // ];
 
       return newTurn;
     });
@@ -166,61 +125,3 @@ function App() {
 }
 
 export default App;
-
-// coding exercise 16:
-// import React from 'react';
-
-// import Review from './Review';
-
-// // don't change the Component name "App"
-// function App() {
-//     let [feedback, setFeedback] = React.useState();
-//     let [student, setStudent] = React.useState();
-
-//     function handleFeedback(event) {
-//         setFeedback(event.target.value);
-//     }
-
-//     function handleStudent(event) {
-//         setStudent(event.target.value);
-//     }
-
-//   return (
-//     <>
-//       <section id="feedback">
-//         <h2>Please share some feedback</h2>
-//         <p>
-//           <label>Your Feedback</label>
-//           <textarea onChange={handleFeedback} value={feedback} required />
-//         </p>
-//         <p>
-//           <label>Your Name</label>
-//           <input onChange={handleStudent} value={student} type="text" required />
-//         </p>
-//       </section>
-//       <section id="draft">
-//         <h2>Your feedback</h2>
-
-//         <Review feedback={feedback} student={student} />
-
-//         <p>
-//           <button>Save</button>
-//         </p>
-//       </section>
-//     </>
-//   );
-// }
-
-// export default App;
-
-// export default function Review({ feedback, student }) {
-
-//   return (
-//     <figure>
-//       <blockquote>
-//         <p>{feedback}</p>
-//       </blockquote>
-//       <figcaption>{student}</figcaption>
-//     </figure>
-//   );
-// }

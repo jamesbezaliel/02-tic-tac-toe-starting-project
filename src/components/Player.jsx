@@ -5,10 +5,6 @@ export default function Player({ initialName, symbol, isActive, onChangePlayerNa
   const [isEditing, setIsEditing] = useState(false);
 
   function handleClick() {
-    // not the good option for react
-    // setIsEditing(!isEditing);
-
-    // better option:
     setIsEditing((prevIsEditing) => !prevIsEditing);
 
     if (isEditing) {
@@ -20,7 +16,6 @@ export default function Player({ initialName, symbol, isActive, onChangePlayerNa
     setPlayerName(event.target.value);
   }
 
-  // max's way:
   let editablePlayerName = <span className="player-name">{playerName}</span>;
   if (isEditing) {
     editablePlayerName = (
@@ -36,15 +31,6 @@ export default function Player({ initialName, symbol, isActive, onChangePlayerNa
   return (
     <li className={isActive ? "active" : undefined}>
       <span className="player">
-        {/* my way: */}
-        {/* {isEditing ? (
-          <input type="text" onChange={editPlayerName} value={playerName} />
-        ) : (
-          <span required className="player-name">{playerName}</span>
-        )} */}
-
-        {/* max's way: */}
-
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
       </span>
