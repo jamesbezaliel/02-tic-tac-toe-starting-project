@@ -1,39 +1,12 @@
 // import { useState } from "react";
 
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
 // note:
 // we need lifting state up concept in this GameBoard component and also
 // in Player component because we need to know which player is currently playing
 // (GameBoard for symbol, and Player for styling who is currently active)
 // lifting state up concept means we need to lift (move) the state to the closest common ancestor component
 // in this case, the common ancestor component is App component
-export default function GameBoard({ handleActivePlayer, turns }) {
-  let gameBoard = initialGameBoard;
-
-  // fill the game board based on turns prop
-  for (let turn of turns) {
-    console.log(turn);
-
-    // max's way:
-    const { square, activePlayer } = turn;
-    const { row, col } = square;
-
-    // const { row, col } = turn.square;
-    // const activePlayer  = turn.activePlayer;
-
-    // my way:
-    // const {row, col, activePlayer} = turn;
-    // or:
-    // const row = turn.row;
-    // const col = turn.col;
-    // const activePlayer = turn.activePlayer;
-
-    gameBoard[row][col] = activePlayer;
-  }
+export default function GameBoard({ handleSelectSquare, gameBoard }) {
 
   // we commented this:
   // reason: because we need to lift the state up to App component, why?
@@ -54,7 +27,7 @@ export default function GameBoard({ handleActivePlayer, turns }) {
   //     return updatedGameBoard;
   //   });
 
-  //   handleActivePlayer();
+  //   handleSelectSquare();
   // }
 
   return (
@@ -64,16 +37,19 @@ export default function GameBoard({ handleActivePlayer, turns }) {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                {/* <button onClick={() => handleClickButton(rowIndex, colIndex)}>
-                  {playerSymbol}
-                </button> */}
+                {/* max's way */}
                 <button
+                  onClick={() => handleSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol}
+                >
+                  {/* my way */}
+                  {/* <button
                   onClick={
                     !gameBoard[rowIndex][colIndex]
-                      ? () => handleActivePlayer(rowIndex, colIndex)
+                      ? () => handleSelectSquare(rowIndex, colIndex)
                       : undefined
                   }
-                >
+                > */}
                   {playerSymbol}
                 </button>
               </li>

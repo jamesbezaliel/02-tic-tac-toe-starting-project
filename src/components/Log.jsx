@@ -1,4 +1,4 @@
-export default function Log({ turns }) {
+export default function Log({ turns, players }) {
   return (
     <ol id="log">
       {/* {turns.map((turn) => {
@@ -14,7 +14,7 @@ export default function Log({ turns }) {
       {/* max's way: */}
       {turns.map((turn) => (
         <li key={`${turn.square.row}${turn.square.col}`}>
-          {turn.activePlayer} selected {turn.square.row}, {turn.square.col}
+          {players[turn.activePlayer]} selected {turn.square.row}, {turn.square.col}
         </li>
       ))}
 
